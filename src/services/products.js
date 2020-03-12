@@ -36,10 +36,6 @@ class ShoppingService {
 
     async getProductById (idproduct){
 
-
-
-
-        
         try {
            const query = `select p.productid,p.title, p.price, f.url from files as f inner join products as p
                             on  p.productid = f.productid
@@ -77,6 +73,22 @@ class ShoppingService {
         }
     }
 
+    async getOrdersByUserId (userid){
+        try{
+            const query = `select o.orderid, o.userid,p.productid, o.productid, p.title, p.description, p.price, o.quantity ,f.url 
+                            from orders o 
+                            left join products p
+                            on p.productid = o.productid
+                            left join files f
+                            on f.productid = p.productid 
+                            where o.userid = $1
+                            and f.main = 1`
+            let result = await this.connect(query, [userid]);
+            return result.rows                
+        } catch(err){
+            console.log(err)
+        }
+    }
     
 
 }
