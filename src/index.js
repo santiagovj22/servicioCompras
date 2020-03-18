@@ -11,7 +11,7 @@ app.use(require('./routes/index'));
 
 app.get('/', (req,res) => {
     res.json({
-        status: 'works'
+        status: 'Service My orders {My account KIERO INTERNATIONAL}'
     })
 })
 app.listen(app.get('port'), () => {
